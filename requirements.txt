@@ -1,0 +1,9 @@
+Flask==3.0.3
+Flask-Cors==4.0.1
+pandas==2.2.2
+scikit-learn==1.4.2
+lightgbm==4.3.0
+xgboost==2.0.3
+joblib==1.4.2
+google-generativeai
+gunicorn==22.0.0

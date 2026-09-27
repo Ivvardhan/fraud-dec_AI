@@ -1,0 +1,101 @@
+.feed-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: hidden;
+    height: calc(100vh - 140px);
+}
+
+.feed-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr 1fr;
+    padding: 20px 30px;
+    border-bottom: 1px solid var(--glass-border);
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.feed-col.center { text-align: center; }
+.feed-col.right { text-align: right; }
+
+.feed-window {
+    flex-grow: 1;
+    overflow: hidden;
+    position: relative;
+    padding: 20px 0;
+    /* gradient masks to fade top and bottom */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+.feed-scroller {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 30px;
+    animation: scrollFeed 40s linear infinite;
+}
+
+/* Pause animation on hover */
+.feed-window:hover .feed-scroller {
+    animation-play-state: paused;
+}
+
+.tx-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr 1fr;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    align-items: center;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.tx-row:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: scale(1.02);
+}
+
+.tx-id {
+    font-family: monospace;
+    font-size: 15px;
+    color: var(--text-primary);
+    letter-spacing: 0.5px;
+}
+
+.tx-arrow {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.tx-status {
+    text-align: right;
+}
+
+.badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.badge-success {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--success-color);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.badge-failed {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--danger-color);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+@keyframes scrollFeed {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-100%); }
+}

@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Transactions - UPI Fraud Detection</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="live.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Background Blobs -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <div class="dashboard-container">
+        <aside class="sidebar glass-panel">
+            <div class="brand">
+                <i class="fa-solid fa-building-columns brand-icon"></i>
+                <h2>UPI and Bank Status</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item"><i class="fa-solid fa-magnifying-glass-chart"></i> Historical Data</a>
+                <a href="detect.html" class="nav-item"><i class="fa-solid fa-shield-virus"></i> UPI and Bank Status</a>
+                <a href="models.html" class="nav-item"><i class="fa-solid fa-microchip"></i> Models Dashboard</a>
+                <a href="live_transactions.html" class="nav-item active"><i class="fa-solid fa-bolt"></i> Live Feed</a>
+                <a href="detect_fraud.html" class="nav-item"><i class="fa-solid fa-shield-halved"></i> Detect Fraud</a>
+            </nav>
+            <div class="system-status info-status">
+                <div class="status-indicator" style="background: var(--warning-color); box-shadow: 0 0 8px var(--warning-color);"></div>
+                <span>ML Model: Standby</span>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header glass-panel">
+                <div class="header-titles">
+                    <h1>Live Transactions Feed</h1>
+                    <p>Real-time simulation of UPI network traffic</p>
+                </div>
+                <div class="header-stats">
+                    <div class="stat-box">
+                        <span class="stat-label">Feed Status</span>
+                        <span class="stat-value text-success" style="font-size: 18px;"><i class="fa-solid fa-circle-play"></i> LIVE</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-scroll">
+                <div class="feed-container glass-panel">
+                    <div class="feed-header">
+                        <div class="feed-col">Sender</div>
+                        <div class="feed-col center">Direction</div>
+                        <div class="feed-col">Receiver</div>
+                        <div class="feed-col right">Status</div>
+                    </div>
+                    <div class="feed-window">
+                        <div class="feed-scroller" id="feed-scroller">
+                            <!-- Transactions will be injected here via live.js -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="live.js"></script>
+</body>
+</html>
+

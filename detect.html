@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPI Fraud Analytics | Detect Fraud</title>
+    <link rel="stylesheet" href="styles.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Background Elements -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar glass-panel">
+            <div class="brand">
+                <i class="fa-solid fa-building-columns brand-icon"></i>
+                <h2>UPI</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item"><i class="fa-solid fa-magnifying-glass-chart"></i> Historical Data</a>
+                <a href="detect.html" class="nav-item active"><i class="fa-solid fa-shield-virus"></i> UPI and Bank Status</a>
+                <a href="models.html" class="nav-item"><i class="fa-solid fa-microchip"></i> Models Dashboard</a>
+                <a href="live_transactions.html" class="nav-item"><i class="fa-solid fa-bolt"></i> Live Feed</a>
+                <a href="detect_fraud.html" class="nav-item"><i class="fa-solid fa-shield-halved"></i> Detect Fraud</a>
+            </nav>
+            <div class="system-status info-status">
+                <div class="status-indicator"
+                    style="background: var(--warning-color); box-shadow: 0 0 8px var(--warning-color);"></div>
+                <span>ML Model: Standby</span>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header glass-panel">
+                <div class="header-titles">
+                    <h1>Real-Time Fraud Detection</h1>
+                    <p>Enter transaction details to analyze risk using the Machine Learning engine</p>
+                </div>
+            </header>
+
+            <div class="content-scroll">
+                <div class="details-grid" style="display: flex; flex-direction: row; gap: 20px; align-items: flex-start; width: 100%;">
+                    <div class="left-side-wrapper" style="flex: 3; display: flex; flex-direction: column; gap: 20px;">
+                        <div class="form-container glass-panel">
+                    <div class="form-header">
+                        <h3><i class="fa-solid fa-magnifying-glass"></i> Transaction Analysis</h3>
+                    </div>
+
+                    <form id="detection-form" class="detection-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="sender-upi">Sender UPI ID</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-user input-icon"></i>
+                                    <input type="text" id="sender-upi" placeholder="e.g. sender@ybl" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="receiver-upi">Receiver UPI ID</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-user-tag input-icon"></i>
+                                    <input type="text" id="receiver-upi" placeholder="e.g. receiver@okaxis" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="amount">Transaction Amount (₹)</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-indian-rupee-sign input-icon"></i>
+                                    <input type="number" id="amount" placeholder="e.g. 15000" min="1" step="0.01"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="device-type">Device Type</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-mobile-screen-button input-icon"></i>
+                                    <select id="device-type" required
+                                        style="width: 100%; padding: 14px 14px 14px 44px; background: rgba(0, 0, 0, 0.2); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text-primary); font-family: var(--font-main); font-size: 15px; appearance: none;">
+                                        <option value="Android" style="color: black;" selected>Android</option>
+                                        <option value="iOS" style="color: black;">iOS</option>
+                                        <option value="Feature Phone" style="color: black;">Feature Phone</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="button-group" style="display: flex; gap: 10px;">
+                            <button type="submit" class="btn-primary" id="analyze-btn" style="flex: 1;">
+                                <span class="btn-text">Analyze Transaction</span>
+                                <i class="fa-solid fa-microchip"></i>
+                            </button>
+                            <button type="reset" class="btn-secondary" id="clear-btn" style="flex: 1; padding: 14px 24px; border-radius: 10px; border: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.05); color: var(--text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 600; font-family: var(--font-main); transition: all 0.3s ease;">
+                                <span class="btn-text">Clear Form</span>
+                                <i class="fa-solid fa-eraser"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Middle Column Wrapper -->
+                <div class="middle-column-container">
+                    <!-- Results Widget (Hidden by default) -->
+                    <div class="result-container glass-panel" id="result-widget" style="display: none;">
+                        <div class="result-header">
+                            <h3>Analysis Result</h3>
+                        </div>
+                        <div class="result-body">
+                            <div class="loader-container" id="loading-state">
+                                <div class="scanner"></div>
+                                <p>Analyzing parameters...</p>
+                            </div>
+
+                            <div class="final-result" id="final-result" style="display: none;">
+                                <div class="result-icon-lg" id="result-icon">
+                                    <!-- JS inserts icon -->
+                                </div>
+                                <h2 id="result-title">Scanning...</h2>
+                                <p id="result-desc">Determining risk factors based on historical patterns.</p>
+
+                                <div class="prediction-checklist"
+                                    style="text-align: left; margin-top: 20px; font-size: 14px; color: var(--text-secondary); background: rgba(0,0,0,0.2); padding: 15px; border-radius: 10px; border: 1px solid var(--glass-border);">
+                                    <ol style="padding-left: 20px; line-height: 1.8; margin: 0;">
+                                        <li><strong style="color: var(--text-primary);">UPI IDs:</strong> <span
+                                                id="check-upi">Verifying...</span></li>
+                                        <li><strong style="color: var(--text-primary);">Bank Health:</strong> <span
+                                                id="check-bank">Checking...</span></li>
+                                        <li><strong style="color: var(--text-primary);">Transaction Risk:</strong> <span
+                                                id="check-txn">Analyzing...</span></li>
+                                    </ol>
+                                </div>
+
+                                <!-- AI Prediction Widget -->
+                                <div class="ai-comment-container" id="ai-comment-widget"
+                                    style="display: none; margin-top: 20px; text-align: left; background: rgba(0,0,0,0.2); border-radius: 10px; border: 1px solid var(--glass-border); padding: 15px;">
+                                    <h4 style="margin-bottom: 10px; color: var(--text-primary); font-size: 15px;"><i
+                                            class="fa-solid fa-robot"></i> AI Prediction</h4>
+                                    <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.5; margin: 0;"
+                                        id="ai-comment-text">
+                                        Generating...
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- End middle-column-container -->
+                </div> <!-- End left-side-wrapper -->
+
+                <!-- Right Column Wrapper -->
+                <div class="right-column-container" style="flex: 2; min-width: 300px;">
+                    <!-- Bank Status Dashboard -->
+                    <div class="bank-status-container glass-panel">
+                        <div class="bank-status-header">
+                            <h3><i class="fa-solid fa-server"></i> Bank Health Status</h3>
+                            <span class="live-pulse">Live</span>
+                        </div>
+                        <div class="bank-list">
+                            <!-- Banks will be dynamically populated or hardcoded here -->
+                            <div class="bank-item" data-bank="Axis Bank">
+                                <span class="bank-name"><i class="fa-solid fa-building-columns"></i> Axis Bank</span>
+                                <div class="sparkline-container">
+                                    <canvas class="sparkline"></canvas>
+                                    <span class="report-count">0 reports</span>
+                                </div>
+                            </div>
+                            <div class="bank-item" data-bank="Bank of Baroda">
+                                <span class="bank-name"><i class="fa-solid fa-building-columns"></i> Bank of
+                                    Baroda</span>
+                                <div class="sparkline-container">
+                                    <canvas class="sparkline"></canvas>
+                                    <span class="report-count">0 reports</span>
+                                </div>
+                            </div>
+                            <div class="bank-item" data-bank="Bank of India">
+                                <span class="bank-name"><i class="fa-solid fa-building-columns"></i> Bank of
+                                    India</span>
+                                <div class="sparkline-container">
+                                    <canvas class="sparkline"></canvas>
+                                    <span class="report-count">0 reports</span>
+                                </div>
+                            </div>
+                            <div class="bank-item" data-bank="HDFC Bank">
+                                <span class="bank-name"><i class="fa-solid fa-building-columns"></i> HDFC Bank</span>
+                                <div class="sparkline-container">
+                                    <canvas class="sparkline"></canvas>
+                                    <span class="report-count">0 reports</span>
+                                </div>
+                            </div>
+                            <div class="bank-item" data-bank="ICICI Bank">
+                                <span class="bank-name"><i class="fa-solid fa-building-columns"></i> ICICI Bank</span>
+                                <div class="sparkline-container">
+                                    <canvas class="sparkline"></canvas>
+                                    <span class="report-count">0 reports</span>
+                                </div>
+                            </div>
+                            <div class="bank-item" data-bank="IDFC First Bank">
+                                <span class="bank-name"><i class="fa-solid fa-building-columns"></i> IDFC First
+                                    Bank</span>
+                                <div class="sparkline-container">
+                                    <canvas class="sparkline"></canvas>
+                                    <span class="report-count">0 reports</span>
+                                </div>
+                            </div>
+                            <div class="bank-item" data-bank="Indian Bank">
+                                <span class="bank-name"><i class="fa-solid fa-building-columns"></i> Indian Bank</span>
+                                <div class="sparkline-container">
+                                    <canvas class="sparkline"></canvas>
+                                    <span class="report-count">0 reports</span>
+                                </div>
+                            </div>
+                            <div class="bank-item" data-bank="India Post Payments Bank">
+                                <span class="bank-name"><i class="fa-solid fa-building-columns"></i> India Post Payments
+                                    Bank</span>
+                                <div class="sparkline-container">
+                                    <canvas class="sparkline"></canvas>
+                                    <span class="report-count">0 reports</span>
+                                </div>
+                            </div>
+                            <div class="bank-item" data-bank="Kotak Mahindra Bank">
+                                <span class="bank-name"><i class="fa-solid fa-building-columns"></i> Kotak Mahindra
+                                    Bank</span>
+                                <div class="sparkline-container">
+                                    <canvas class="sparkline"></canvas>
+                                    <span class="report-count">0 reports</span>
+                                </div>
+                            </div>
+                            <div class="bank-item" data-bank="State Bank of India">
+                                <span class="bank-name"><i class="fa-solid fa-building-columns"></i> State Bank of India
+                                    (SBI)</span>
+                                <div class="sparkline-container">
+                                    <canvas class="sparkline"></canvas>
+                                    <span class="report-count">0 reports</span>
+                                </div>
+                            </div>
+                            <div class="bank-item" data-bank="Unified Payments Interface">
+                                <span class="bank-name"><i class="fa-solid fa-mobile-screen"></i> Unified Payments
+                                    Interface</span>
+                                <div class="sparkline-container">
+                                    <canvas class="sparkline"></canvas>
+                                    <span class="report-count">0 reports</span>
+                                </div>
+                            </div>
+                        </div> <!-- End bank-list -->
+                    </div> <!-- End bank-status-container -->
+                </div> <!-- End right-column-container -->
+            </div> <!-- End details-grid -->
+            </div> <!-- End content-scroll -->
+        </main>
+    </div> <!-- End dashboard-container -->
+    <script src="detect.js"></script>
+</body>
+
+</html>

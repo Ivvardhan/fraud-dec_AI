@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.env
+.ipynb_checkpoints/
+*.ipynb
+fraud_model.pkl
+random_forest_model.pkl

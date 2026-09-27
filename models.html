@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPI Fraud Analytics | Models Dashboard</title>
+    <meta name="description" content="Model performance dashboard for the UPI fraud analytics system.">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <div class="dashboard-container">
+        <aside class="sidebar glass-panel">
+            <div class="brand">
+                <i class="fa-solid fa-building-columns brand-icon"></i>
+                <h2>UPI and Bank Status</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item"><i class="fa-solid fa-magnifying-glass-chart"></i> Historical Data</a>
+                <a href="detect.html" class="nav-item"><i class="fa-solid fa-shield-virus"></i> UPI and Bank Status</a>
+                <a href="models.html" class="nav-item active"><i class="fa-solid fa-microchip"></i> Models Dashboard</a>
+                <a href="live_transactions.html" class="nav-item"><i class="fa-solid fa-bolt"></i> Live Feed</a>
+                <a href="detect_fraud.html" class="nav-item"><i class="fa-solid fa-shield-halved"></i> Detect Fraud</a>
+            </nav>
+
+            <div class="system-status info-status">
+                <div class="status-indicator"></div>
+                <span>Model Health: Stable</span>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="header glass-panel">
+                <div class="header-titles">
+                    <h1>Models Dashboard</h1>
+                    <p>Monitoring the fraud detection model performance and operational health</p>
+                </div>
+                <div class="header-stats">
+                    <div class="stat-box">
+                        <span class="stat-label">Model</span>
+                        <span class="stat-value text-gradient" id="selected-model-name">LightGBM</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Status</span>
+                        <span class="stat-value text-success">Online</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-scroll">
+                <div class="kpi-grid">
+                    <div class="kpi-card glass-panel">
+                        <div class="kpi-header">
+                            <h3>Selected Model</h3>
+                            <i class="fa-solid fa-brain icon-bg"></i>
+                        </div>
+                        <div class="kpi-body">
+                            <div class="kpi-main">
+                                <span class="kpi-label">Model Family</span>
+                                <h2 class="kpi-value" id="selected-model-card">LightGBM</h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card glass-panel">
+                        <div class="kpi-header">
+                            <h3>Accuracy</h3>
+                            <i class="fa-solid fa-chart-line icon-bg"></i>
+                        </div>
+                        <div class="kpi-body">
+                            <div class="kpi-main">
+                                <span class="kpi-label">Validation Score</span>
+                                <h2 class="kpi-value text-success">87.08%</h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card glass-panel kpi-highlight">
+                        <div class="kpi-header">
+                            <h3>ROC-AUC</h3>
+                            <i class="fa-solid fa-gauge-high icon-bg"></i>
+                        </div>
+                        <div class="kpi-body">
+                            <div class="kpi-main">
+                                <span class="kpi-label">Discrimination Power</span>
+                                <h2 class="kpi-value text-gradient">92.19%</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="details-grid">
+                    <section class="chart-section glass-panel">
+                        <div class="section-header">
+                            <h3>Model Comparison</h3>
+                        </div>
+                        <div class="model-table-wrap">
+                            <table class="model-table">
+                                <thead>
+                                    <tr>
+                                        <th>Model</th>
+                                        <th>Accuracy</th>
+                                        <th>Precision</th>
+                                        <th>Recall</th>
+                                        <th>F1 Score</th>
+                                        <th>ROC-AUC</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>LightGBM</td>
+                                        <td>0.867214</td>
+                                        <td>0.875162</td>
+                                        <td>0.760255</td>
+                                        <td>0.813671</td>
+                                        <td>0.926334</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Random Forest</td>
+                                        <td>0.866000</td>
+                                        <td>0.886927</td>
+                                        <td>0.743398</td>
+                                        <td>0.808845</td>
+                                        <td>0.924035</td>
+                                    </tr>
+                                    <tr>
+                                        <td>XGBoost</td>
+                                        <td>0.863286</td>
+                                        <td>0.864284</td>
+                                        <td>0.761004</td>
+                                        <td>0.809363</td>
+                                        <td>0.924304</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Logistic Regression</td>
+                                        <td>0.830857</td>
+                                        <td>0.775654</td>
+                                        <td>0.782918</td>
+                                        <td>0.779269</td>
+                                        <td>0.870734</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const modelMetrics = {
+            model: 'LightGBM',
+            datasetRows: 70000
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const selectedModelName = document.getElementById('selected-model-name');
+            const selectedModelCard = document.getElementById('selected-model-card');
+
+            if (selectedModelName) selectedModelName.textContent = modelMetrics.model;
+            if (selectedModelCard) selectedModelCard.textContent = modelMetrics.model;
+        });
+    </script>
+</body>
+</html>
+

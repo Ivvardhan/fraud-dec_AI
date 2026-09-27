@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPI Fraud Analytics | Detect Fraud</title>
+    <link rel="stylesheet" href="styles.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Background Elements -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar glass-panel">
+            <div class="brand">
+                <i class="fa-solid fa-building-columns brand-icon"></i>
+                <h2>UPI</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item"><i class="fa-solid fa-magnifying-glass-chart"></i> Historical Data</a>
+                <a href="detect.html" class="nav-item"><i class="fa-solid fa-shield-virus"></i> UPI and Bank Status</a>
+                <a href="models.html" class="nav-item"><i class="fa-solid fa-microchip"></i> Models Dashboard</a>
+                <a href="live_transactions.html" class="nav-item"><i class="fa-solid fa-bolt"></i> Live Feed</a>
+                <a href="detect_fraud.html" class="nav-item active"><i class="fa-solid fa-shield-halved"></i> Detect Fraud</a>
+            </nav>
+            <div class="system-status info-status">
+                <div class="status-indicator"
+                    style="background: var(--warning-color); box-shadow: 0 0 8px var(--warning-color);"></div>
+                <span>ML Model: Standby</span>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header glass-panel">
+                <div class="header-titles">
+                    <h1>Advanced Fraud Detection</h1>
+                    <p>Enter comprehensive transaction details for deep analysis</p>
+                </div>
+            </header>
+
+            <div class="content-scroll">
+                <div class="form-container glass-panel">
+                    <div class="form-header">
+                        <h3><i class="fa-solid fa-magnifying-glass"></i> Transaction Analysis</h3>
+                    </div>
+
+                    <form id="detection-form" class="detection-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="amount">Transaction Amount (₹)</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-indian-rupee-sign input-icon"></i>
+                                    <input type="number" id="amount" placeholder="e.g. 15000" min="1" step="0.01"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="device-type">Device Type</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-mobile-screen-button input-icon"></i>
+                                    <select id="device-type" required
+                                        style="width: 100%; padding: 14px 14px 14px 44px; background: rgba(0, 0, 0, 0.2); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text-primary); font-family: var(--font-main); font-size: 15px; appearance: none;">
+                                        <option value="Android" style="color: black;" selected>Android</option>
+                                        <option value="iOS" style="color: black;">iOS</option>
+                                        <option value="Feature Phone" style="color: black;">Feature Phone</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="upi-app">UPI App</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-brands fa-google-pay input-icon"></i>
+                                    <select id="upi-app" required style="width: 100%; padding: 14px 14px 14px 44px; background: rgba(0, 0, 0, 0.2); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text-primary); font-family: var(--font-main); font-size: 15px; appearance: none;">
+                                        <option value="PhonePe" style="color: black;" selected>PhonePe</option>
+                                        <option value="Google Pay" style="color: black;">Google Pay</option>
+                                        <option value="BHIM" style="color: black;">BHIM</option>
+                                        <option value="Paytm" style="color: black;">Paytm</option>
+                                        <option value="WhatsApp Pay" style="color: black;">WhatsApp Pay</option>
+                                        <option value="Freecharge" style="color: black;">Freecharge</option>
+                                        <option value="BHIM UPI" style="color: black;">BHIM UPI</option>
+                                        <option value="Mobikwik" style="color: black;">Mobikwik</option>
+                                        <option value="Amazon Pay" style="color: black;">Amazon Pay</option>
+                                        <option value="CRED Pay" style="color: black;">CRED Pay</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="transaction-type">Transaction Type</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-money-bill-transfer input-icon"></i>
+                                    <select id="transaction-type" required style="width: 100%; padding: 14px 14px 14px 44px; background: rgba(0, 0, 0, 0.2); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text-primary); font-family: var(--font-main); font-size: 15px; appearance: none;">
+                                        <option value="P2P" style="color: black;" selected>P2P</option>
+                                        <option value="P2M Merchant Payment" style="color: black;">P2M Merchant Payment</option>
+                                        <option value="P2M" style="color: black;">P2M</option>
+                                        <option value="P2P Transfer" style="color: black;">P2P Transfer</option>
+                                        <option value="Collect Request" style="color: black;">Collect Request</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="victim-state">State</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-map-marker-alt input-icon"></i>
+                                    <select id="victim-state" required style="width: 100%; padding: 14px 14px 14px 44px; background: rgba(0, 0, 0, 0.2); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text-primary); font-family: var(--font-main); font-size: 15px; appearance: none;">
+                                        <option value="" style="color: black;" disabled selected>Select State</option>
+                                        <option value="Andhra Pradesh" style="color: black;">Andhra Pradesh</option>
+                                        <option value="Arunachal Pradesh" style="color: black;">Arunachal Pradesh</option>
+                                        <option value="Assam" style="color: black;">Assam</option>
+                                        <option value="Bihar" style="color: black;">Bihar</option>
+                                        <option value="Chhattisgarh" style="color: black;">Chhattisgarh</option>
+                                        <option value="Goa" style="color: black;">Goa</option>
+                                        <option value="Gujarat" style="color: black;">Gujarat</option>
+                                        <option value="Haryana" style="color: black;">Haryana</option>
+                                        <option value="Himachal Pradesh" style="color: black;">Himachal Pradesh</option>
+                                        <option value="Jharkhand" style="color: black;">Jharkhand</option>
+                                        <option value="Karnataka" style="color: black;">Karnataka</option>
+                                        <option value="Kerala" style="color: black;">Kerala</option>
+                                        <option value="Madhya Pradesh" style="color: black;">Madhya Pradesh</option>
+                                        <option value="Maharashtra" style="color: black;">Maharashtra</option>
+                                        <option value="Manipur" style="color: black;">Manipur</option>
+                                        <option value="Meghalaya" style="color: black;">Meghalaya</option>
+                                        <option value="Mizoram" style="color: black;">Mizoram</option>
+                                        <option value="Nagaland" style="color: black;">Nagaland</option>
+                                        <option value="Odisha" style="color: black;">Odisha</option>
+                                        <option value="Punjab" style="color: black;">Punjab</option>
+                                        <option value="Rajasthan" style="color: black;">Rajasthan</option>
+                                        <option value="Sikkim" style="color: black;">Sikkim</option>
+                                        <option value="Tamil Nadu" style="color: black;">Tamil Nadu</option>
+                                        <option value="Telangana" style="color: black;">Telangana</option>
+                                        <option value="Tripura" style="color: black;">Tripura</option>
+                                        <option value="Uttar Pradesh" style="color: black;">Uttar Pradesh</option>
+                                        <option value="Uttarakhand" style="color: black;">Uttarakhand</option>
+                                        <option value="West Bengal" style="color: black;">West Bengal</option>
+                                        <option value="Delhi" style="color: black;">Delhi</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="victim-occupation">Occupation</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-briefcase input-icon"></i>
+                                    <select id="victim-occupation" required style="width: 100%; padding: 14px 14px 14px 44px; background: rgba(0, 0, 0, 0.2); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text-primary); font-family: var(--font-main); font-size: 15px; appearance: none;">
+                                        <option value="Salaried Employee" style="color: black;" selected>Salaried Employee</option>
+                                        <option value="Farmer" style="color: black;">Farmer</option>
+                                        <option value="Student" style="color: black;">Student</option>
+                                        <option value="Self-employed/Business" style="color: black;">Self-employed/Business</option>
+                                        <option value="Gig Worker/Freelancer" style="color: black;">Gig Worker/Freelancer</option>
+                                        <option value="Daily Wage Worker" style="color: black;">Daily Wage Worker</option>
+                                        <option value="Self-employed/Business Owner" style="color: black;">Self-employed/Business Owner</option>
+                                        <option value="Homemaker" style="color: black;">Homemaker</option>
+                                        <option value="Retired Person" style="color: black;">Retired Person</option>
+                                        <option value="Unemployed" style="color: black;">Unemployed</option>
+                                        <option value="Retired" style="color: black;">Retired</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="linked-bank">Linked Bank</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-building-columns input-icon"></i>
+                                    <select id="linked-bank" required style="width: 100%; padding: 14px 14px 14px 44px; background: rgba(0, 0, 0, 0.2); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text-primary); font-family: var(--font-main); font-size: 15px; appearance: none;">
+                                        <option value="State Bank of India" style="color: black;" selected>State Bank of India</option>
+                                        <option value="Punjab National Bank" style="color: black;">Punjab National Bank</option>
+                                        <option value="Canara Bank" style="color: black;">Canara Bank</option>
+                                        <option value="Bank of Baroda" style="color: black;">Bank of Baroda</option>
+                                        <option value="ICICI Bank" style="color: black;">ICICI Bank</option>
+                                        <option value="SBI" style="color: black;">SBI</option>
+                                        <option value="HDFC Bank" style="color: black;">HDFC Bank</option>
+                                        <option value="Other" style="color: black;">Other</option>
+                                        <option value="IndusInd Bank" style="color: black;">IndusInd Bank</option>
+                                        <option value="Kotak Mahindra Bank" style="color: black;">Kotak Mahindra Bank</option>
+                                        <option value="Yes Bank" style="color: black;">Yes Bank</option>
+                                        <option value="Axis Bank" style="color: black;">Axis Bank</option>
+                                        <option value="Union Bank of India" style="color: black;">Union Bank of India</option>
+                                        <option value="IDFC First Bank" style="color: black;">IDFC First Bank</option>
+                                        <option value="Federal Bank" style="color: black;">Federal Bank</option>
+                                        <option value="Central Bank of India" style="color: black;">Central Bank of India</option>
+                                        <option value="South Indian Bank" style="color: black;">South Indian Bank</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="victim-age-group">Victim Age Group</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-user-clock input-icon"></i>
+                                    <select id="victim-age-group" required style="width: 100%; padding: 14px 14px 14px 44px; background: rgba(0, 0, 0, 0.2); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text-primary); font-family: var(--font-main); font-size: 15px; appearance: none;">
+                                        <option value="26-35" style="color: black;" selected>26-35</option>
+                                        <option value="18-25" style="color: black;">18-25</option>
+                                        <option value="36-45" style="color: black;">36-45</option>
+                                        <option value="46-55" style="color: black;">46-55</option>
+                                        <option value="56-65" style="color: black;">56-65</option>
+                                        <option value="66+" style="color: black;">66+</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="time">Time</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-regular fa-clock input-icon"></i>
+                                    <input type="time" id="time" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="button-group" style="display: flex; gap: 10px;">
+                            <button type="submit" class="btn-primary" id="analyze-btn" style="flex: 1;">
+                                <span class="btn-text">Predict Fraud</span>
+                                <i class="fa-solid fa-microchip"></i>
+                            </button>
+                            <button type="reset" class="btn-secondary" id="clear-btn" style="flex: 1; padding: 14px 24px; border-radius: 10px; border: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.05); color: var(--text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 600; font-family: var(--font-main); transition: all 0.3s ease;">
+                                <span class="btn-text">Clear Form</span>
+                                <i class="fa-solid fa-eraser"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Middle Column Wrapper -->
+                <div class="middle-column-container">
+                    <!-- Results Widget (Hidden by default) -->
+                    <div class="result-container glass-panel" id="result-widget" style="display: none;">
+                        <div class="result-header">
+                            <h3>Analysis Result</h3>
+                        </div>
+                        <div class="result-body">
+                            <div class="loader-container" id="loading-state">
+                                <div class="scanner"></div>
+                                <p>Analyzing parameters...</p>
+                            </div>
+
+                            <div class="final-result" id="final-result" style="display: none;">
+                                <div class="result-icon-lg" id="result-icon">
+                                    <!-- JS inserts icon -->
+                                </div>
+                                <h2 id="result-title">Scanning...</h2>
+                                <div style="margin-top: 15px;">
+                                    <p style="font-size: 16px; color: var(--text-secondary); margin-bottom: 5px;">Risk Score: <span id="risk-score" style="font-weight: bold; color: var(--text-primary);">0/100</span></p>
+                                    <div class="risk-bar-container" style="width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;">
+                                        <div class="risk-bar" id="risk-bar" style="width: 0%; height: 100%; transition: width 1s ease;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </main>
+    </div>
+    <script src="detect_fraud.js"></script>
+</body>
+
+</html>
