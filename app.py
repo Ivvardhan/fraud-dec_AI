@@ -214,13 +214,17 @@ def predict():
             # Clamp between 2% and 98%
             adjusted_prob = max(0.02, min(0.98, adjusted_prob))
             
-            risk_score = round(adjusted_prob * 100, 2)
+            risk_score = float(round(adjusted_prob * 100, 2))
             is_fraud = bool(risk_score > 65)  # threshold is now 65%
         else:
             # For the basic "UPI and Bank Status" page, use the base probability without aggressive heuristics
             # But cap it so it doesn't trigger fraud just for a high amount unless base_prob is very high
-            risk_score = round(base_prob * 100, 2)
+            risk_score = float(round(base_prob * 100, 2))
             is_fraud = bool(base_prob > 0.65)
+
+        # Ensure types are native for JSON serialization
+        risk_score = float(risk_score)
+        is_fraud = bool(is_fraud)
 
         # Get latest reports for the bank
         reports = bank_history.get(bank, [0])[-1]
