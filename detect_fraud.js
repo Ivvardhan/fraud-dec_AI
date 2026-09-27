@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const apiBase =
         window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
             ? 'http://127.0.0.1:5000'
-            : window.location.origin;
+            : 'https://fraud-dec-ai-1.onrender.com';
 
     // Check Backend Status
     fetch(`${apiBase}/api/status`)

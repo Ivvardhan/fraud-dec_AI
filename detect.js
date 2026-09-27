@@ -11,9 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const scoreVal = document.getElementById('score-val');
 
     const apiBase =
-        window.location.protocol === 'file:'
+        window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
             ? 'http://127.0.0.1:5000'
-            : `${window.location.protocol}//${window.location.hostname}:5000`;
+            : 'https://fraud-dec-ai-1.onrender.com';
 
     // Check Backend Status
     fetch(`${apiBase}/api/status`)
